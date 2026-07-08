@@ -11,7 +11,7 @@
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode 1)
 
-(hl-line-mode 1)
+(global-hl-line-mode 1)
 
 ;eglot hooks
 
@@ -56,6 +56,13 @@
   :ensure t
   :custom
   (completion-styles '(orderless basic)))
+
+(use-package corfu
+  :ensure t
+  :init
+  (global-corfu-mode t)
+  :custom
+  (setq tab-always-indent 'complete))
 
 (use-package gruvbox-theme
   :ensure t
