@@ -13,6 +13,25 @@
 
 (hl-line-mode 1)
 
+;eglot hooks
+
+(use-package eglot
+  :ensure nil
+  :hook
+  ((python-mode . eglot-ensure)
+   (go-mode . eglot-ensure)
+   (rust-mode . eglot-ensure)
+   (c-mode . eglot-ensure)
+   (c++-mode . eglot-ensure))
+  :bind
+  (:map eglot-mode-map
+	("C-c a" . eglot-code-actions)
+	("C-c r" . eglot-rename)
+	("C-c f" . eglot-format))
+  :config
+  (setq eglot-autoshutdown t)
+  (setq eglot-confirm-server-initiated-edits nil))
+
 (use-package vertico
   :ensure t
   :init
@@ -37,6 +56,3 @@
   :ensure t
   :config
   (load-theme 'gruvbox t))
-
-(use-package magit
-  :ensure t)
