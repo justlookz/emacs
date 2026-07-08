@@ -38,9 +38,14 @@
   (vertico-mode t))
 
 (use-package marginalia
-     :ensure t
-     :init
-     (marginalia-mode t))
+  :ensure t
+  :init
+  (marginalia-mode t))
+
+(use-package which-key
+  :ensure nil
+  :init
+  (which-key-mode t))
 
 (use-package savehist
   :ensure nil
