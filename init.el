@@ -1,9 +1,16 @@
 (setq inhibit-startup-message t)
 
-(add-to-list 'package-archives '("melpa" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+  '("melpa" . "https://stable.melpa.org/packages/") t)
+
+(add-to-list 'default-frame-alist
+  '(font . "GoMono Nerd Font Propo-10:weigth=bold"))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file t)
+
+(global-display-fill-column-indicator-mode t)
+(setq-default display-fill-column-indicator-column 64)
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
