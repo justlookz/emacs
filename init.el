@@ -1,5 +1,7 @@
 (setq inhibit-startup-message t)
 
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file t)
 
@@ -17,7 +19,10 @@
 
 (global-hl-line-mode 1)
 
-;eglot hooks
+(use-package kanagawa-themes
+  :ensure t
+  :config
+  (load-theme 'kanagawa-wave t))
 
 (use-package eglot
   :ensure nil
@@ -68,7 +73,5 @@
   :custom
   (setq tab-always-indent 'complete))
 
-(use-package gruvbox-theme
-  :ensure t
-  :config
-  (load-theme 'gruvbox t))
+(use-package magit
+  :ensure t)
