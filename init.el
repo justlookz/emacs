@@ -1,13 +1,13 @@
 (setq inhibit-startup-message t)
 
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://stable.melpa.org/packages/") t)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file t)
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(tab-bar-mode 1)
+(tab-bar-mode -1)
 (menu-bar-mode -1)
 
 (electric-pair-mode 1)
