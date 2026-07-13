@@ -86,4 +86,4 @@
 (use-package evil
   :ensure t
   :init
-  (evil-mode 1))
+  (evil-mode t))
