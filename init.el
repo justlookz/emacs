@@ -2,10 +2,9 @@
 (setq inhibit-startup-message t)
 
 (require 'package)
-(package-initialize)
-
 (add-to-list 'package-archives
   '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
 
 (add-to-list 'default-frame-alist
   '(font . "GoMono Nerd Font Propo-10:weigth=bold"))
@@ -30,19 +29,36 @@
 
 (global-hl-line-mode 1)
 
+
+(use-package treesit-auto
+  :ensure t
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+
 (use-package kanagawa-themes
   :ensure t
   :config
   (load-theme 'kanagawa-wave t))
 
+(use-package typst-ts-mode
+  :init
+  (add-to-list 'treesit-language-source-alist
+	       '(typst "https://github.com/uben0/tree-sitter-typst"))
+  :ensure t)
+
 (use-package eglot
   :ensure nil
   :hook
-  ((python-mode . eglot-ensure)
-   (go-mode . eglot-ensure)
-   (rust-mode . eglot-ensure)
-   (c-mode . eglot-ensure)
-   (c++-mode . eglot-ensure))
+  (python-mode . eglot-ensure)
+  (go-mode . eglot-ensure)
+  (rust-mode . eglot-ensure)
+  (c-mode . eglot-ensure)
+  (c++-mode . eglot-ensure)
+  (java-mode . eglot-ensure)
+  (typst-ts-mode . eglot-ensure)
   :bind
   (:map eglot-mode-map
 	("C-c a" . eglot-code-actions)
@@ -92,6 +108,8 @@
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
+  (setq evil-vsplit-window-right t)
+  (setq evil-split-window-below t)
   :config
   (evil-mode 1))
 
