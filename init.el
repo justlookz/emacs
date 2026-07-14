@@ -29,7 +29,6 @@
 
 (global-hl-line-mode 1)
 
-
 (use-package treesit-auto
   :ensure t
   :custom
@@ -52,12 +51,12 @@
 (use-package eglot
   :ensure nil
   :hook
-  (python-mode . eglot-ensure)
-  (go-mode . eglot-ensure)
-  (rust-mode . eglot-ensure)
-  (c-mode . eglot-ensure)
-  (c++-mode . eglot-ensure)
-  (java-mode . eglot-ensure)
+  ((python-mode python-ts-mode) . eglot-ensure)
+  ((go-mode go-ts-mode) . eglot-ensure)
+  ((rust-mode rust-ts-mode) . eglot-ensure)
+  ((c-mode c-ts-mode) . eglot-ensure)
+  ((c++-mode c++-ts-mode) . eglot-ensure)
+  ((java-mode java-ts-mode) . eglot-ensure)
   (typst-ts-mode . eglot-ensure)
   :bind
   (:map eglot-mode-map
@@ -66,7 +65,26 @@
 	("C-c f" . eglot-format))
   :init
   (setq eglot-confirm-server-initiated-edits nil)
-  (setq eglot-autoshutdown t))
+  (setq eglot-autoshutdown t)
+  :config
+  (add-to-list 'eglot-server-programs
+	       '(typst-ts-mode . ("tinymist")))
+  (setq-default eglot-workspace-configuration
+		'(:java
+		  (:configuration
+		   (:updateBuildConfiguration "interactive"))
+		  :codeGeneration
+		  (:toString
+		   (:template
+		    "${object.className}{${member.name()}=${member.value}, ${otherMembers}}"))
+		  :project
+		  (:sourcePaths
+		   ["" "src" "src/main"
+		    "src/test" "app/src/main/java"
+		    "src/java"])
+		  :referencedLibraries
+		  ["../**/libs/**/*.jar"
+		   "../**/lib/**/*.jar"])))
 
 (use-package vertico
   :ensure t
