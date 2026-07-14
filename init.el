@@ -1,15 +1,19 @@
+;;; -*- lexical-binding: t; -*-
 (setq inhibit-startup-message t)
 
+(require 'package)
+(package-initialize)
+
 (add-to-list 'package-archives
-  '("melpa" . "https://stable.melpa.org/packages/") t)
+  '("melpa" . "https://melpa.org/packages/") t)
 
 (add-to-list 'default-frame-alist
   '(font . "GoMono Nerd Font Propo-10:weigth=bold"))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file t)
+(load custom-file 1)
 
-(global-display-fill-column-indicator-mode t)
+(global-display-fill-column-indicator-mode 1)
 (setq-default display-fill-column-indicator-column 64)
 
 (tool-bar-mode -1)
@@ -44,13 +48,13 @@
 	("C-c a" . eglot-code-actions)
 	("C-c r" . eglot-rename)
 	("C-c f" . eglot-format))
-  :config
-  (setq eglot-autoshutdown t)
-  (setq eglot-confirm-server-initiated-edits nil))
+  :init
+  (setq eglot-confirm-server-initiated-edits nil)
+  (setq eglot-autoshutdown t))
 
 (use-package vertico
   :ensure t
-  :init
+  :config
   (vertico-mode t))
 
 (use-package marginalia
@@ -60,7 +64,7 @@
 
 (use-package which-key
   :ensure nil
-  :init
+  :config
   (which-key-mode t))
 
 (use-package savehist
@@ -78,7 +82,7 @@
   :init
   (global-corfu-mode t)
   :custom
-  (setq tab-always-indent 'complete))
+  (tab-always-indent 'complete))
 
 (use-package magit
   :ensure t)
@@ -86,4 +90,13 @@
 (use-package evil
   :ensure t
   :init
-  (evil-mode t))
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode 1))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
