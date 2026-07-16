@@ -1,13 +1,14 @@
 ;;; -*- lexical-binding: t; -*-
 (setq inhibit-startup-message t)
-
+(set-language-environment 'utf-8)
+(set-default-coding-systems 'utf-8)
 (require 'package)
 (add-to-list 'package-archives
   '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
 (add-to-list 'default-frame-alist
-  '(font . "GoMono Nerd Font Propo-10:weigth=bold"))
+  '(font . "GoMono Nerd Font Propo-10:weight=bold"))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 1)
@@ -28,6 +29,22 @@
 (global-display-line-numbers-mode 1)
 
 (global-hl-line-mode 1)
+
+(use-package org
+  :ensure nil
+  :config
+  (setq org-babel-default-header-args:shell
+	'((:results . "code")
+	  (:wrap . "src shell")
+	  (:session . "CODE_RUNNING")
+	  (:dir . ".")))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (shell      . t)
+     (python     . t)))
+
+   (setq org-confirm-babel-evaluate nil))
 
 (use-package treesit-auto
   :ensure t
@@ -72,7 +89,7 @@
   (setq-default eglot-workspace-configuration
 		'(:java
 		  (:configuration
-		   (:updateBuildConfiguration "interactive"))
+		   (:updateBuildConfiguration "automatic"))
 		  :codeGeneration
 		  (:toString
 		   (:template
@@ -134,5 +151,6 @@
 (use-package evil-collection
   :after evil
   :ensure t
+  :init
   :config
   (evil-collection-init))
