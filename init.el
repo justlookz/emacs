@@ -2,13 +2,19 @@
 (setq inhibit-startup-message t)
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
+
+(recentf-mode 1)
+(save-place-mode 1)
+(global-auto-revert-mode 1)
+
 (require 'package)
 (add-to-list 'package-archives
   '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-(add-to-list 'default-frame-alist
-  '(font . "GoMono Nerd Font Propo-10:weight=bold"))
+(set-face-attribute 'default nil
+		    :family "GoMono Nerd Font Propo"
+		    :height 100)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 1)
@@ -34,7 +40,7 @@
   :ensure nil
   :config
   (setq org-babel-default-header-args:shell
-	'((:results . "code")
+	'((:results . "output")
 	  (:wrap . "src shell")
 	  (:session . "CODE_RUNNING")
 	  (:dir . ".")))
@@ -43,7 +49,6 @@
    '((emacs-lisp . t)
      (shell      . t)
      (python     . t)))
-
    (setq org-confirm-babel-evaluate nil))
 
 (use-package treesit-auto
