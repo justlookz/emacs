@@ -151,6 +151,7 @@
   (setq evil-vsplit-window-right t)
   (setq evil-split-window-below t)
   :config
+  (evil-global-set-key 'normal "gc" 'comment-line)
   (evil-mode 1))
 
 (use-package evil-collection
