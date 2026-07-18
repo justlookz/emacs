@@ -12,20 +12,16 @@
   '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-(set-face-attribute 'default nil
-		    :family "GoMono Nerd Font Propo"
-		    :height 100)
-
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 1)
 
 (global-display-fill-column-indicator-mode 1)
 (setq-default display-fill-column-indicator-column 64)
 
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(tab-bar-mode -1)
-(menu-bar-mode -1)
+;; (tool-bar-mode -1)
+;; (scroll-bar-mode -1)
+;; (tab-bar-mode -1)
+;; (menu-bar-mode -1)
 
 (electric-pair-mode 1)
 
@@ -66,16 +62,16 @@
   (doom-themes-enable-bold t)   ; if nil, bold is universally disabled
   (doom-themes-enable-italic nil) ; if nil, italics is universally disabled
   ;; for treemacs users
-  (doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
+  (doom-themes-treemacs-theme "doom-monokai-ristretto") ; use "doom-colors" for less minimal icon theme
   :config
   (load-theme 'doom-monokai-ristretto t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
   ;; Enable custom neotree theme (nerd-icons must be installed!)
-  (doom-themes-neotree-config)
+  ;; (doom-themes-neotree-config)
   ;; or for treemacs users
-  (doom-themes-treemacs-config)
+  ;; (doom-themes-treemacs-config)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
