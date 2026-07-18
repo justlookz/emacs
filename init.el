@@ -3,10 +3,6 @@
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
 
-(recentf-mode 1)
-(save-place-mode 1)
-(global-auto-revert-mode 1)
-
 (require 'package)
 (add-to-list 'package-archives
   '("melpa" . "https://melpa.org/packages/") t)
@@ -15,31 +11,38 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 1)
 
-(global-display-fill-column-indicator-mode 1)
-(setq-default display-fill-column-indicator-column 64)
+(use-package emacs
+  :ensure nil
+  :config
+  (load-theme 'monokai-ristretto t)
+  (global-display-fill-column-indicator-mode 1)
+  (setq-default display-fill-column-indicator-column 64)
+  (global-hl-line-mode 1)
 
-;; (tool-bar-mode -1)
-;; (scroll-bar-mode -1)
-;; (tab-bar-mode -1)
-;; (menu-bar-mode -1)
+  (electric-pair-mode 1)
 
-(electric-pair-mode 1)
+  (setq ring-bell-function 'ignore)
 
-(setq ring-bell-function 'ignore)
+  (recentf-mode 1)
+  (save-place-mode 1)
+  (global-auto-revert-mode 1)
 
-(setq display-line-numbers-type 'relative)
-(global-display-line-numbers-mode 1)
+  (setq display-line-numbers-type 'relative)
+  (global-display-line-numbers-mode 1)
 
-(global-hl-line-mode 1)
+  (recentf-mode 1)
+  (save-place-mode 1)
+  (global-auto-revert-mode 1))
 
 (use-package org
   :ensure nil
-  :config
-  (setq org-babel-default-header-args:shell
+  :custom
+  (org-babel-default-header-args:shell
 	'((:results . "output")
 	  (:wrap . "src shell")
 	  (:session . "CODE_RUNNING")
 	  (:dir . ".")))
+  :config
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
@@ -55,28 +58,8 @@
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
-(use-package doom-themes
-  :ensure t
-  :custom
-  ;; Global settings (defaults)
-  (doom-themes-enable-bold t)   ; if nil, bold is universally disabled
-  (doom-themes-enable-italic nil) ; if nil, italics is universally disabled
-  ;; for treemacs users
-  (doom-themes-treemacs-theme "doom-monokai-ristretto") ; use "doom-colors" for less minimal icon theme
-  :config
-  (load-theme 'doom-monokai-ristretto t)
-
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-  ;; Enable custom neotree theme (nerd-icons must be installed!)
-  ;; (doom-themes-neotree-config)
-  ;; or for treemacs users
-  ;; (doom-themes-treemacs-config)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
-
 (use-package typst-ts-mode
-  :init
+  :custom
   (add-to-list 'treesit-language-source-alist
 	       '(typst "https://github.com/uben0/tree-sitter-typst"))
   :ensure t)
@@ -96,10 +79,9 @@
 	("C-c a" . eglot-code-actions)
 	("C-c r" . eglot-rename)
 	("C-c f" . eglot-format))
-  :init
+  :config
   (setq eglot-confirm-server-initiated-edits nil)
   (setq eglot-autoshutdown t)
-  :config
   (add-to-list 'eglot-server-programs
 	       '(typst-ts-mode . ("tinymist")))
   (setq-default eglot-workspace-configuration
@@ -121,7 +103,9 @@
 
 (use-package vertico
   :ensure t
-  :config
+  :custom
+  (vertico-cycle t)
+  :init
   (vertico-mode t))
 
 (use-package marginalia
@@ -131,12 +115,12 @@
 
 (use-package which-key
   :ensure nil
-  :config
+  :init
   (which-key-mode t))
 
 (use-package savehist
   :ensure nil
-  :config
+  :init
   (savehist-mode 1))
 
 (use-package orderless
@@ -146,28 +130,27 @@
 
 (use-package corfu
   :ensure t
-  :init
-  (global-corfu-mode t)
   :custom
-  (tab-always-indent 'complete))
+  (tab-always-indent 'complete)
+  :init
+  (global-corfu-mode t))
 
 (use-package magit
   :ensure t)
 
 (use-package evil
   :ensure t
-  :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  (setq evil-vsplit-window-right t)
-  (setq evil-split-window-below t)
-  :config
+  :custom
+  (evil-want-integration t)
+  (evil-want-keybinding nil)
+  (evil-vsplit-window-right t)
+  (evil-split-window-below t)
   (evil-global-set-key 'normal "gcc" 'comment-line)
+  :init
   (evil-mode 1))
 
 (use-package evil-collection
   :after evil
   :ensure t
   :init
-  :config
   (evil-collection-init))
