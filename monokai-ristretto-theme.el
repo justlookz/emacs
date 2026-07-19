@@ -2,6 +2,8 @@
   "Monokai Ristretto")
 
 (let ((bg "#2C2525")
+      (black "#322B2B")
+      (bright-black "#403838")
       (fg "#F9F1F1")
       (red "#FD6883")
       (green "#ADDA78")
@@ -22,7 +24,7 @@
 
    `(hl-line
      ((((min-colors 256))
-       (:background "#3A3030"))
+       (:background ,black))
       (t
        (:background "bright-black"))))
 
@@ -36,6 +38,11 @@
       ((((min-colors 256))
         (:foreground ,green))
        (t (:foreground "green"))))
+
+   `(region
+     ((((min-colors 256))
+        (:background ,bright-black))
+       (t (:background "bright-black"))))
 
    `(font-lock-string-face
       ((((min-colors 256))
@@ -72,20 +79,18 @@
        (:background ,bg
 		    :foreground ,fg
 		    :box nil))
-      (t
-       (:background "black"
-		    :foreground "orange"
-		    :box nil))))
+      (t (:background "black"
+          :foreground "orange"
+          :box nil))))
    
    `(mode-line-inactive
      ((((min-colors 256))
        (:background ,bg
 		    :foreground ,fg
 		    :box nil))
-      (t
-       (:background "bright-black"
-		    :foreground "white"
-		    :box nil))))))
+      (t (:background "bright-black"
+		      :foreground "white"
+		      :box nil))))))
 
 
 (provide-theme 'monokai-ristretto)

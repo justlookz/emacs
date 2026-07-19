@@ -1,8 +1,4 @@
 ;;; -*- lexical-binding: t; -*-
-(setq inhibit-startup-message t)
-(set-language-environment 'utf-8)
-(set-default-coding-systems 'utf-8)
-
 (require 'package)
 (add-to-list 'package-archives
   '("melpa" . "https://melpa.org/packages/") t)
@@ -13,8 +9,9 @@
 
 (use-package emacs
   :ensure nil
+  :defer t
   :config
-  (load-theme 'monokai-ristretto t)
+  (global-visual-line-mode 1)
   (global-display-fill-column-indicator-mode 1)
   (setq-default display-fill-column-indicator-column 64)
   (global-hl-line-mode 1)
@@ -33,6 +30,17 @@
   (recentf-mode 1)
   (save-place-mode 1)
   (global-auto-revert-mode 1))
+
+(use-package dired
+  :ensure nil
+  :commands (dired)
+  :hook
+  ((dired-mode . dired-hide-details-mode)
+   (dired-mode . hl-line-mode))
+  :custom
+  (dired-recursive-copies 'always)
+  (dired-recursive-deletes 'always)
+  (dired-dwim-target t))
 
 (use-package org
   :ensure nil
@@ -53,15 +61,19 @@
 (use-package treesit-auto
   :ensure t
   :custom
+  (add-to-list 'treesit-language-source-alist
+	       '(typst "https://github.com/uben0/tree-sitter-typst"))
+  (treesit-auto-langs '(typst))
   (treesit-auto-install 'prompt)
   :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
+  ;; (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
 (use-package typst-ts-mode
-  :custom
-  (add-to-list 'treesit-language-source-alist
-	       '(typst "https://github.com/uben0/tree-sitter-typst"))
+  :after treesit-auto
+  :ensure t)
+
+(use-package lua-mode
   :ensure t)
 
 (use-package eglot
@@ -74,6 +86,7 @@
   ((c++-mode c++-ts-mode) . eglot-ensure)
   ((java-mode java-ts-mode) . eglot-ensure)
   (typst-ts-mode . eglot-ensure)
+  (lua-mode . eglot-ensure)
   :bind
   (:map eglot-mode-map
 	("C-c a" . eglot-code-actions)
@@ -105,22 +118,22 @@
   :ensure t
   :custom
   (vertico-cycle t)
-  :init
+  :config
   (vertico-mode t))
 
 (use-package marginalia
   :ensure t
-  :init
+  :config
   (marginalia-mode t))
 
 (use-package which-key
   :ensure nil
-  :init
+  :config
   (which-key-mode t))
 
 (use-package savehist
   :ensure nil
-  :init
+  :config
   (savehist-mode 1))
 
 (use-package orderless
@@ -132,8 +145,14 @@
   :ensure t
   :custom
   (tab-always-indent 'complete)
-  :init
+  :config
   (global-corfu-mode t))
+
+(use-package consult
+  :ensure t
+  :bind
+  (:map global-map
+	("C-;" . consult-buffer)))
 
 (use-package magit
   :ensure t)
@@ -146,11 +165,11 @@
   (evil-vsplit-window-right t)
   (evil-split-window-below t)
   (evil-global-set-key 'normal "gcc" 'comment-line)
-  :init
+  :config
   (evil-mode 1))
 
 (use-package evil-collection
   :after evil
   :ensure t
-  :init
-  (evil-collection-init))
+  :hook
+  (after-init . evil-collection-init))
