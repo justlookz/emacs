@@ -9,8 +9,7 @@
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
 
-
-(load-theme 'monokai-ristretto t)
+(load-theme 'monokai t)
 (set-face-attribute 'default nil
 		    :family "GoMono Nerd Font Propo"
 		    :height 100)
