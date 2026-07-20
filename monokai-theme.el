@@ -295,7 +295,7 @@ Also affects 'linum-mode' background."
        (monokai-256-green-d       "#8B8878")
        (monokai-256-emphasis       "#FFFAFA")
        (monokai-256-line-number    "#8F908A")
-       (monokai-256-highlight      "#474747")
+       (monokai-256-highlight      "#3D3D3D")
        (monokai-256-highlight-alt  "#3E3E3E")
        (monokai-256-highlight-line "#000000")
        ;; Adaptive higher/lower contrast accented colors
