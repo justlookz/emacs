@@ -157,19 +157,25 @@
 (use-package magit
   :ensure t)
 
-;; (use-package evil
-;;   :ensure t
-;;   :custom
-;;   (evil-want-integration t)
-;;   (evil-want-keybinding nil)
-;;   (evil-vsplit-window-right t)
-;;   (evil-split-window-below t)
-;;   (evil-global-set-key 'normal "gcc" 'comment-line)
-;;   :config
-;;   (evil-mode 1))
+(use-package evil
+  :ensure t
+  :custom
+  (evil-want-integration t)
+  (evil-want-keybinding nil)
+  (evil-want C-i-jump)
+  (evil-want-C-u-scroll t)
+  (evil-want-C-d-scroll t)
+  (evil-want-C-w-delete t)
+  (evil-move-beyond-eol t)
+  (evil-undo-system 'undo-redo)
+  (evil-vsplit-window-right t)
+  (evil-split-window-below t)
+  (evil-global-set-key 'normal "gcc" 'comment-line)
+  :config
+  (evil-mode 1))
 
-;; (use-package evil-collection
-;;   :after evil
-;;   :ensure t
-;;   :hook
-;;   (after-init . evil-collection-init))
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
