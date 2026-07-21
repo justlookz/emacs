@@ -7,6 +7,12 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 1)
 
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-space)
+
+(setq auto-save-file-name-transforms
+	  '((".*" "~/.emacs.d/auto-save/" t)))
+
 (use-package emacs
   :ensure nil
   :defer t
@@ -35,8 +41,7 @@
   :ensure nil
   :commands (dired)
   :hook
-  ((dired-mode . dired-hide-details-mode)
-   (dired-mode . hl-line-mode))
+  ((dired-mode . hl-line-mode))
   :custom
   (dired-recursive-copies 'always)
   (dired-recursive-deletes 'always)
@@ -143,8 +148,18 @@
 
 (use-package corfu
   :ensure t
+  :demand t
   :custom
+  (corfu-cycle t)
+  (corfu-preselect 'prompt)
   (tab-always-indent 'complete)
+  :bind
+  (:map corfu-map
+		("TAB" . corfu-next)
+		([tab] . corfu-next)
+		("S-TAB" . corfu-previous)
+		([backtab]. corfu-previous))
+
   :config
   (global-corfu-mode t))
 
@@ -157,21 +172,32 @@
 (use-package magit
   :ensure t)
 
+;; easy undo redo and persistent history
+(use-package undo-tree
+  :ensure t
+  :custom
+  (undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+  (undo-tree-visualizer-timestamps t)
+  :config
+  (global-undo-tree-mode))
+
 (use-package evil
   :ensure t
   :custom
   (evil-want-integration t)
   (evil-want-keybinding nil)
-  (evil-want C-i-jump)
+  (evil-want C-i-jump t)
   (evil-want-C-u-scroll t)
   (evil-want-C-d-scroll t)
   (evil-want-C-w-delete t)
+  (evil-want-C-n-repeat-search t)
   (evil-move-beyond-eol t)
-  (evil-undo-system 'undo-redo)
+  (evil-undo-system 'undo-tree)
   (evil-vsplit-window-right t)
   (evil-split-window-below t)
-  (evil-global-set-key 'normal "gcc" 'comment-line)
+  
   :config
+  (evil-global-set-key 'normal "gcc" 'comment-line)
   (evil-mode 1))
 
 (use-package evil-collection

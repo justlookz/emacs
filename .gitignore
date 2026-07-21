@@ -5,3 +5,8 @@
 /history
 /server/
 *~
+/org-persist/
+/places
+/recentf
+/transient/
+/tree-sitter/
