@@ -1,4 +1,5 @@
-;;; -*- lexical-binding: t; -*-
+;; _*_ lexical-binding: t ; no-byte-compile: t _*_
+
 (require 'package)
 (add-to-list 'package-archives
   '("melpa" . "https://melpa.org/packages/") t)
@@ -9,9 +10,12 @@
 
 (setq-default tab-width 4)
 (setq indent-line-function 'insert-space)
+(setq confirm-kill-processes nil)
 
-(setq auto-save-file-name-transforms
-	  '((".*" "~/.emacs.d/auto-save/" t)))
+(let ((dir (expand-file-name "auto-save/" user-emacs-directory)))
+  (make-directory dir t)
+  (setq auto-save-file-name-transforms
+		`((".*" ,dir t))))
 
 (use-package emacs
   :ensure nil
@@ -49,12 +53,6 @@
 
 (use-package org
   :ensure nil
-  :custom
-  (org-babel-default-header-args:shell
-	'((:results . "output")
-	  (:wrap . "src shell")
-	  (:session . "CODE_RUNNING")
-	  (:dir . ".")))
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -79,6 +77,14 @@
   :ensure t)
 
 (use-package lua-mode
+  :ensure t)
+
+(use-package gdscript-mode
+  :ensure t
+  :mode "\\.gd\\'"
+  :hook (gdscript-mode . eglot-ensure))
+
+(use-package rust-mode
   :ensure t)
 
 (use-package eglot
@@ -117,7 +123,13 @@
 		    "src/java"])
 		  :referencedLibraries
 		  ["../**/libs/**/*.jar"
-		   "../**/lib/**/*.jar"])))
+		   "../**/lib/**/*.jar"]))
+
+  (add-to-list
+   'eglot-server-programs
+   `(lua-mode . ,(eglot-alternatives
+				  '(("emmylua_ls")
+					("lua_ls"))))))
 
 (use-package vertico
   :ensure t
@@ -144,7 +156,7 @@
 (use-package orderless
   :ensure t
   :custom
-  (completion-styles '(orderless basic)))
+  (completion-styles '(orderless flex basic)))
 
 (use-package corfu
   :ensure t
@@ -192,12 +204,12 @@
   (evil-want-C-w-delete t)
   (evil-want-C-n-repeat-search t)
   (evil-move-beyond-eol t)
-  (evil-undo-system 'undo-tree)
+  (evil-undo-system `undo-tree)
   (evil-vsplit-window-right t)
   (evil-split-window-below t)
   
   :config
-  (evil-global-set-key 'normal "gcc" 'comment-line)
+  (evil-global-set-key `normal "gcc" 'comment-line)
   (evil-mode 1))
 
 (use-package evil-collection
