@@ -25,7 +25,8 @@
   (global-visual-line-mode 1)
   (global-display-fill-column-indicator-mode 1)
   (setq-default display-fill-column-indicator-column 64)
-  (global-hl-line-mode 1)
+  (when (display-graphic-p)
+    (global-hl-line-mode 1))
 
   (electric-pair-mode 1)
 
@@ -82,6 +83,8 @@
   (global-treesit-auto-mode))
 
 (use-package cc-mode
+  :ensure nil
+  :no-require t
   :init
   (setq-default c-basic-offset 4))
 
