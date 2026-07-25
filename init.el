@@ -8,14 +8,15 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 1)
 
-(setq-default tab-width 4)
-(setq indent-line-function 'insert-space)
+(setq-default indent-tabs-mode nil)
+
 (setq confirm-kill-processes nil)
+(setq buffer-save-without-query t)
 
 (let ((dir (expand-file-name "auto-save/" user-emacs-directory)))
   (make-directory dir t)
   (setq auto-save-file-name-transforms
-		`((".*" ,dir t))))
+        `((".*" ,dir t))))
 
 (use-package emacs
   :ensure nil
@@ -64,13 +65,25 @@
 (use-package treesit-auto
   :ensure t
   :custom
-  (add-to-list 'treesit-language-source-alist
-	       '(typst "https://github.com/uben0/tree-sitter-typst"))
-  (treesit-auto-langs '(typst))
-  (treesit-auto-install 'prompt)
+  (treesit-auto-langs '(typst rust c cpp python go java))
+  (treesit-auto-install t)
+  :init
+  (setq-default c-ts-mode-indent-offset 4)
+  (setq treesit-language-source-alist
+        '((rust         "https://github.com/tree-sitter/tree-sitter-rust" "v0.23.3")
+          (c            "https://github.com/tree-sitter/tree-sitter-c" "v0.23.6")
+          (cpp          "https://github.com/tree-sitter/tree-sitter-cpp" "v0.23.4")
+          (python       "https://github.com/tree-sitter/tree-sitter-python" "v0.23.6")
+          (go           "https://github.com/tree-sitter/tree-sitter-go" "v0.23.4")
+          (java           "https://github.com/tree-sitter/tree-sitter-java" "v0.23.5")
+          (typst        "https://github.com/uben0/tree-sitter-typst")))
   :config
-  ;; (treesit-auto-add-to-auto-mode-alist 'all)
+  (treesit-auto-install-all)
   (global-treesit-auto-mode))
+
+(use-package cc-mode
+  :init
+  (setq-default c-basic-offset 4))
 
 (use-package typst-ts-mode
   :after treesit-auto
@@ -100,36 +113,39 @@
   (lua-mode . eglot-ensure)
   :bind
   (:map eglot-mode-map
-	("C-c a" . eglot-code-actions)
-	("C-c r" . eglot-rename)
-	("C-c f" . eglot-format))
+    ("C-c a" . eglot-code-actions)
+    ("C-c r" . eglot-rename)
+    ("C-c f" . eglot-format))
+
   :config
   (setq eglot-confirm-server-initiated-edits nil)
   (setq eglot-autoshutdown t)
+
   (add-to-list 'eglot-server-programs
-	       '(typst-ts-mode . ("tinymist")))
+           '(typst-ts-mode . ("tinymist")))
+
   (setq-default eglot-workspace-configuration
-		'(:java
-		  (:configuration
-		   (:updateBuildConfiguration "automatic"))
-		  :codeGeneration
-		  (:toString
-		   (:template
-		    "${object.className}{${member.name()}=${member.value}, ${otherMembers}}"))
-		  :project
-		  (:sourcePaths
-		   ["" "src" "src/main"
-		    "src/test" "app/src/main/java"
-		    "src/java"])
-		  :referencedLibraries
-		  ["../**/libs/**/*.jar"
-		   "../**/lib/**/*.jar"]))
+        '(:java
+          (:configuration
+           (:updateBuildConfiguration "automatic"))
+          :codeGeneration
+          (:toString
+           (:template
+            "${object.className}{${member.name()}=${member.value}, ${otherMembers}}"))
+          :project
+          (:sourcePaths
+           ["" "src" "src/main"
+            "src/test" "app/src/main/java"
+            "src/java"])
+          :referencedLibraries
+          ["../**/libs/**/*.jar"
+           "../**/lib/**/*.jar"]))
 
   (add-to-list
    'eglot-server-programs
    `(lua-mode . ,(eglot-alternatives
-				  '(("emmylua_ls")
-					("lua_ls"))))))
+                  '(("emmylua_ls")
+                    ("lua_ls"))))))
 
 (use-package vertico
   :ensure t
@@ -167,10 +183,10 @@
   (tab-always-indent 'complete)
   :bind
   (:map corfu-map
-		("TAB" . corfu-next)
-		([tab] . corfu-next)
-		("S-TAB" . corfu-previous)
-		([backtab]. corfu-previous))
+        ("TAB" . corfu-next)
+        ([tab] . corfu-next)
+        ("S-TAB" . corfu-previous)
+        ([backtab]. corfu-previous))
 
   :config
   (global-corfu-mode t))
@@ -179,7 +195,7 @@
   :ensure t
   :bind
   (:map global-map
-	("C-;" . consult-buffer)))
+    ("C-;" . consult-buffer)))
 
 (use-package magit
   :ensure t)
