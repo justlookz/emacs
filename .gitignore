@@ -11,3 +11,6 @@
 /transient/
 /tree-sitter/
 /auto-save/
+/eshell/
+/package-quickstart.el
+/package-quickstart.elc

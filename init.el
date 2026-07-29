@@ -217,6 +217,7 @@
   :config
   (global-corfu-mode t))
 
+
 (use-package consult
   :ensure t
   :bind
@@ -225,8 +226,7 @@
 
 
 (use-package magit
-  :ensure t
-  :commands (magit-status magit-log-current))
+  :ensure t)
 
 
 ;; easy undo redo and persistent history
@@ -268,7 +268,6 @@
   (evil-define-key 'normal 'global (kbd "<leader> s G") 'consult-git-grep)
   (evil-define-key 'normal 'global (kbd "<leader> s r") 'consult-ripgrep)
   (evil-define-key 'normal 'global (kbd "<leader> s h") 'consult-info)
-  (evil-define-key 'normal 'global (kbd "<leader> s") "+Search")
   (evil-define-key 'normal 'global (kbd "<leader> /") 'consult-line)
   
   (evil-define-key 'normal 'global (kbd "] d") 'flymake-goto-next-error) ;; Go to next Flymake error
@@ -278,7 +277,6 @@
   (evil-define-key 'normal 'global (kbd "<leader> x d") 'dired)
   (evil-define-key 'normal 'global (kbd "<leader> x j") 'dired-jump)
   (evil-define-key 'normal 'global (kbd "<leader> x f") 'find-file)
-  (evil-define-key 'normal 'global (kbd "<leader> x") "+files")
 
   ;; Magit keybindings for Git integration
   (evil-define-key 'normal 'global (kbd "<leader> g g") 'magit-status)      ;; Open Magit status
@@ -286,9 +284,8 @@
   (evil-define-key 'normal 'global (kbd "<leader> g d") 'magit-diff-buffer-file) ;; Show diff for the current file
   (evil-define-key 'normal 'global (kbd "<leader> g D") 'diff-hl-show-hunk) ;; Show diff for a hunk
   (evil-define-key 'normal 'global (kbd "<leader> g b") 'vc-annotate)       ;; Annotate buffer with version control info
-  (evil-define-key 'normal 'global (kbd "<leader> g") "+Git")
 
-  ;; Buffer management keybindings
+  
   (evil-define-key 'normal 'global (kbd "] b") 'switch-to-next-buffer) ;; Switch to next buffer
   (evil-define-key 'normal 'global (kbd "[ b") 'switch-to-prev-buffer) ;; Switch to previous buffer
   (evil-define-key 'normal 'global (kbd "<leader> b i") 'consult-buffer) ;; Open consult buffer list
@@ -296,7 +293,6 @@
   (evil-define-key 'normal 'global (kbd "<leader> b d") 'kill-current-buffer) ;; Kill current buffer
   (evil-define-key 'normal 'global (kbd "<leader> b s") 'save-buffer) ;; Save buffer
   (evil-define-key 'normal 'global (kbd "<leader> b l") 'consult-buffer) ;; Consult buffer
-  (evil-define-key 'normal 'global (kbd "<leader> b") "+Buffer")
   (evil-define-key 'normal 'global (kbd "<leader>SPC") 'consult-buffer) ;; Consult buffer
 
   ;; Help keybindings
@@ -304,7 +300,6 @@
   (evil-define-key 'normal 'global (kbd "<leader> h f") 'describe-function) ;; Describe function
   (evil-define-key 'normal 'global (kbd "<leader> h v") 'describe-variable) ;; Describe variable
   (evil-define-key 'normal 'global (kbd "<leader> h k") 'describe-key) ;; Describe key
-  (evil-define-key 'normal 'global (kbd "<leader> h") "+Help")
 
   ;; Tab navigation
   (evil-define-key 'normal 'global (kbd "] t") 'tab-next) ;; Go to next tab
@@ -321,6 +316,7 @@
   :ensure t
   :hook (evil-mode . evil-collection-init)
   :custom
+  (evil-collection-setup-minibuffer t)
   (evil-collection-want-find-usages-bindings t))
 
 
@@ -341,6 +337,7 @@
   (evil-define-key
     '(normal visual)
     'global (kbd "C-c C--") 'evil-numbers/dec-at-pt-incremental))
+
 
 (use-package rainbow-delimiters
   :ensure t
