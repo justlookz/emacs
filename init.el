@@ -314,10 +314,12 @@
   :after evil
   :requires evil
   :ensure t
-  :hook (evil-mode . evil-collection-init)
   :custom
   (evil-collection-setup-minibuffer t)
-  (evil-collection-want-find-usages-bindings t))
+  (evil-collection-want-find-usages-bindings t)
+  :config
+  (evil-collection-init '(magit dired vertico corfu))
+)
 
 
 (use-package evil-numbers
