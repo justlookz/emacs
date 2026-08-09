@@ -1,3 +1,7 @@
+;; _*_ lexical-binding: t ; no-byte-compile: t _*_
+
+;; setup to download treesitter
+;; base of the 14 abi
 (use-package treesit-auto
   :ensure t
   :custom

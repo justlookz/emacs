@@ -53,6 +53,7 @@
 (my/load "ui")
 
 
+;; etc
 (use-package editorconfig
   :ensure t
   :config

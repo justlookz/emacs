@@ -1,3 +1,6 @@
+;; _*_ lexical-binding: t ; no-byte-compile: t _*_
+
+;; setup lsp. only 1 lsp per major mode
 (use-package eglot
   :ensure nil
   :hook
