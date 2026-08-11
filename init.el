@@ -27,14 +27,6 @@
 (setq buffer-save-without-query t)
 
 
-;; Autosave directory for fail safe. I already use it one time
-;; it saves a lot of time with little to non space
-(let ((dir (expand-file-name "auto-save/" user-emacs-directory)))
-  (make-directory dir t)
-  (setq auto-save-file-name-transforms
-        `((".*" ,dir t))))
-
-
 ;; line at 64 characters
 (global-visual-line-mode 1)
 (global-display-fill-column-indicator-mode 1)

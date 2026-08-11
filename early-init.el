@@ -9,10 +9,22 @@
 (load custom-file 1)
 
 
+;; Autosave directory for fail safe. I already use it one time
+;; it saves a lot of time with little to non space
+(let ((dir (expand-file-name "auto-save/" user-emacs-directory)))
+  (make-directory dir t)
+  (setq auto-save-file-name-transforms
+        `((".*" ,dir t))))
+;; Backups directory
+(let ((dir (expand-file-name "backups/" user-emacs-directory)))
+  (make-directory dir t)
+  (setq backup-directory-alist `(("." . ,dir))))
+
+
 ;; gc increase chunks
 (setq gc-cons-percentage 1.0)
 (if noninteractive  ; in CLI sessions
-    (setq gc-cons-threshold 134217728)  ; 128mb
+  (setq gc-cons-threshold 134217728)  ; 128mb
   (setq gc-cons-threshold most-positive-fixnum)
   (setq load-prefer-newer nil))
 
