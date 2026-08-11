@@ -1,4 +1,4 @@
-;; _*_ lexical-binding: t ; no-byte-compile: t _*_
+;; -*- lexical-binding: t; no-byte-compile: t; -*-
 
 ;; dired is the file manager of emacs.
 ;; like oil mostly but not really
@@ -83,5 +83,5 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 
-;; (my/load "evil")
-(my/load "meow")
+(my/load "evil")
+;; (my/load "meow")

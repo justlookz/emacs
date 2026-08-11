@@ -1,4 +1,4 @@
-;; _*_ lexical-binding: t ; no-byte-compile: t _*_
+;; -*- lexical-binding: t; no-byte-compile: t; -*-
 
 ;; vim keybinds
 (use-package evil
@@ -18,6 +18,7 @@
   (evil-split-window-below t)
   (evil-leader/in-all-states t)
   (evil-want-fine-undo t)
+  (evil-cross-lines t)
   
   :config
   ;; Define the leader key as Space
@@ -97,7 +98,7 @@
     'global (kbd "C-c -") 'evil-numbers/dec-at-pt)
   (evil-define-key
     '(normal visual)
-    'global (kbd "C-c C-+") 'evil-numbers/inc-at-pt-incremental)
+    'global (kbd "g C-a") 'evil-numbers/inc-at-pt-incremental)
   (evil-define-key
     '(normal visual)
-    'global (kbd "C-c C--") 'evil-numbers/dec-at-pt-incremental))
+    'global (kbd "g C-x") 'evil-numbers/dec-at-pt-incremental))

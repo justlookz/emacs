@@ -1,4 +1,4 @@
-;; _*_ lexical-binding: t ; no-byte-compile: t _*_
+;; -*- lexical-binding: t; no-byte-compile: t; -*-
 
 ;; setup for typescript mode
 (use-package typescript-ts-mode

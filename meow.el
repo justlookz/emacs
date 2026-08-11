@@ -82,8 +82,9 @@
    '("<escape>" . ignore)))
 (use-package meow
   :ensure t
+  :custom
+  (meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   :config
-  (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
 
   (meow-motion-define-key
    '("j" . meow-next)

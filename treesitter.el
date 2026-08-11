@@ -1,4 +1,4 @@
-;; _*_ lexical-binding: t ; no-byte-compile: t _*_
+;; -*- lexical-binding: t; no-byte-compile: t; -*-
 
 ;; setup to download treesitter
 ;; base of the 14 abi

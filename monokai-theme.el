@@ -1,5 +1,8 @@
 ;;; monokai-theme.el --- A fruity color theme for Emacs. -*- lexical-binding: t; -*-
 
+;;; modification
+;; comment with green-d instead of gray
+
 ;; Copyright (C) 2011-2016
 
 ;; Author: Kelvin Smith <oneKelvinSmith@gmail.com>

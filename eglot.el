@@ -1,4 +1,4 @@
-;; _*_ lexical-binding: t ; no-byte-compile: t _*_
+;; -*- lexical-binding: t; no-byte-compile: t; -*-
 
 ;; setup lsp. only 1 lsp per major mode
 (use-package eglot
