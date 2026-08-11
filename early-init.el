@@ -11,14 +11,16 @@
 
 ;; Autosave directory for fail safe. I already use it one time
 ;; it saves a lot of time with little to non space
-(let ((dir (expand-file-name "auto-save/" user-emacs-directory)))
-  (make-directory dir t)
-  (setq auto-save-file-name-transforms
-        `((".*" ,dir t))))
+(make-directory (expand-file-name "tmp/auto-saves/" user-emacs-directory) t)
+
+(setq auto-save-list-file-prefix (expand-file-name "tmp/auto-saves/sessions/" user-emacs-directory)
+      auto-save-file-name-transforms `((".*" ,(expand-file-name "tmp/auto-saves/" user-emacs-directory) t)))
+
 ;; Backups directory
-(let ((dir (expand-file-name "backups/" user-emacs-directory)))
-  (make-directory dir t)
-  (setq backup-directory-alist `(("." . ,dir))))
+(setq backup-directory-alist `(("." . ,(expand-file-name "tmp/backups/" user-emacs-directory))))
+
+;; disable lock files
+(setq create-lockfiles nil)
 
 
 ;; gc increase chunks
@@ -69,12 +71,6 @@
 (setq inhibit-startup-message t)
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
-
-
-;; load theme. reduce flashbangs
-;; if monokai it is costumized to have
-;; green comments
-(load-theme 'monokai t)
 
 
 ;; set fonts if exists on system

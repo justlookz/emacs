@@ -68,12 +68,18 @@
 
 
 ;; etc
+
+;; editorconfig are files for rules that all editors can follow
+;; like vs code and vim default
+;; on emacs you have to enable this
+;; this is a core plugin. ensure t is for older emacs versions
 (use-package editorconfig
   :ensure t
   :config
   (editorconfig-mode 1))
 
 
+;; setup to run other shell mostly on org mode
 (use-package org
   :ensure nil
   :config
@@ -85,11 +91,16 @@
    (setq org-confirm-babel-evaluate nil))
 
 
+;; undo history is pretty handy ngl
 (use-package savehist
   :ensure nil
   :config
   (savehist-mode 1))
 
 
+;; I dont have anything to say
+;; this is magit. the best way to handle
+;; git projects by far. emacs is popular
+;; for magit and org mode
 (use-package magit
   :ensure t)
