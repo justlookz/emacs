@@ -99,9 +99,36 @@
  (defun my/doom-theme-customizations (&rest _)
     (when (and custom-enabled-themes
                (string-prefix-p "doom-" (symbol-name (car custom-enabled-themes))))
+      (require 'org-faces)
+      (require 'magit)
+      (require 'consult)
       (set-face-foreground
-       'font-lock-comment-face
-       (doom-color 'orange))))
+       'font-lock-comment-face (doom-color 'orange))
+      (set-face-foreground
+       'org-done (doom-color 'green))
+      (set-face-foreground
+       'tab-line (doom-color 'orange))
+      (set-face-foreground
+       'mode-line (doom-color 'orange))
+      (set-face-foreground
+       'magit-hash (doom-color 'green))
+      (set-face-foreground
+       'magit-log-graph (doom-color 'green))
+      (set-face-foreground
+       'magit-refname (doom-color 'green))
+      (set-face-foreground
+       'org-drawer (doom-color 'green))
+      (set-face-foreground
+       'org-time-grid (doom-color 'green))
+      (set-face-foreground
+       'line-number (doom-color 'green))
+      (set-face-foreground
+       'message-mml (doom-color 'green))
+      (set-face-foreground
+       'consult-help (doom-color 'green))
+      (set-face-foreground
+       'dired-ignored (doom-color 'red))
+      ))
 (defvar after-enable-theme-hook nil
    "Normal hook run after enabling a theme.")
 
@@ -116,6 +143,6 @@
 
   :config
 
-  (add-hook 'enable-theme-functions #'my/doom-theme-customizations)
+  (add-hook 'after-enable-theme-hook #'my/doom-theme-customizations)
   (load-theme 'doom-gruvbox)
   )
