@@ -144,5 +144,5 @@
   :config
 
   (add-hook 'after-enable-theme-hook #'my/doom-theme-customizations)
-  (load-theme 'doom-gruvbox)
+  (load-theme 'doom-gruvbox t)
   )
