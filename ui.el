@@ -75,6 +75,18 @@
   (global-corfu-mode t)
   )
 
+
+;; this add selections for corfu for file completion etc
+(use-package cape
+  :ensure t
+  :bind ("C-c p" . cape-prefix-map) 
+  :init
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-elisp-block)
+)
+
+
 ;; search engine with previou
 (use-package consult
   :ensure t
@@ -102,8 +114,11 @@
       (require 'org-faces)
       (require 'magit)
       (require 'consult)
+      (require 'eglot)
       (set-face-foreground
        'font-lock-comment-face (doom-color 'orange))
+      (set-face-foreground
+       'font-lock-string-face (doom-color 'yellow))
       (set-face-foreground
        'org-done (doom-color 'green))
       (set-face-foreground
@@ -128,6 +143,18 @@
        'consult-help (doom-color 'green))
       (set-face-foreground
        'dired-ignored (doom-color 'red))
+      (set-face-foreground
+       'eglot-type-hint-face (doom-color 'green))
+      (set-face-foreground
+       'eglot-type-hint-face (doom-color 'green))
+      (set-face-foreground
+       'eglot-inlay-hint-face (doom-color 'green))
+      (set-face-foreground
+       'eglot-parameter-hint-face (doom-color 'green))
+      (set-face-foreground
+       'eglot-diagnostic-tag-deprecated-face (doom-color 'red))
+      (set-face-foreground
+       'eglot-diagnostic-tag-unnecessary-face (doom-color 'green))
       ))
 (defvar after-enable-theme-hook nil
    "Normal hook run after enabling a theme.")
@@ -144,5 +171,5 @@
   :config
 
   (add-hook 'after-enable-theme-hook #'my/doom-theme-customizations)
-  (load-theme 'doom-gruvbox)
+  (load-theme 'doom-monokai-pro t)
   )

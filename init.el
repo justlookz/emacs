@@ -33,6 +33,9 @@
 (setq-default display-fill-column-indicator-column 64)
 
 
+;; refresh files if edited from elsewhere
+(global-auto-revert-mode t)
+
 ;; highlight current line
 (when (display-graphic-p)
   (global-hl-line-mode 1))
