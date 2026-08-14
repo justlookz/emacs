@@ -176,7 +176,6 @@
     (run-hooks 'after-enable-theme-hook))
 
   (advice-add 'enable-theme :after #'run-after-enable-theme-hook)
-
   
   :config
 
