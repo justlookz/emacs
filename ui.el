@@ -118,6 +118,8 @@
       (set-face-foreground
        'font-lock-comment-face (doom-color 'orange))
       (set-face-foreground
+       'shadow (doom-color 'green))
+      (set-face-foreground
        'font-lock-string-face (doom-color 'yellow))
       (set-face-foreground
        'org-done (doom-color 'green))
@@ -129,6 +131,12 @@
        'magit-hash (doom-color 'green))
       (set-face-foreground
        'magit-log-graph (doom-color 'green))
+      (set-face-foreground
+       'magit-diff-hunk-heading (doom-color 'yellow))
+      (set-face-foreground
+       'magit-dimmed (doom-color 'yellow))
+      (set-face-foreground
+       'magit-diff-removed (doom-color 'red))
       (set-face-foreground
        'magit-refname (doom-color 'green))
       (set-face-foreground
