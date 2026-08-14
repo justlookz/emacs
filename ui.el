@@ -108,7 +108,11 @@
 
 
 ;; doom themes
- (defun my/doom-theme-customizations (&rest _)
+(use-package doom-themes
+  :ensure t
+
+  :init
+  (defun my/doom-theme-customizations (&rest _)
     (when (and custom-enabled-themes
                (string-prefix-p "doom-" (symbol-name (car custom-enabled-themes))))
       (require 'org-faces)
@@ -164,18 +168,16 @@
       (set-face-foreground
        'eglot-diagnostic-tag-unnecessary-face (doom-color 'green))
       ))
-(defvar after-enable-theme-hook nil
-   "Normal hook run after enabling a theme.")
+  (defvar after-enable-theme-hook nil
+    "Normal hook run after enabling a theme.")
 
-(defun run-after-enable-theme-hook (&rest _args)
-   "Run `after-enable-theme-hook'."
-   (run-hooks 'after-enable-theme-hook))
+  (defun run-after-enable-theme-hook (&rest _args)
+    "Run `after-enable-theme-hook'."
+    (run-hooks 'after-enable-theme-hook))
 
-(advice-add 'enable-theme :after #'run-after-enable-theme-hook)
+  (advice-add 'enable-theme :after #'run-after-enable-theme-hook)
 
-(use-package doom-themes
-  :ensure t
-
+  
   :config
 
   (add-hook 'after-enable-theme-hook #'my/doom-theme-customizations)
