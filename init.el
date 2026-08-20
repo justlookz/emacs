@@ -15,6 +15,8 @@
 ;; check for newer versions
 (setq package-quickstart t)
 
+(set-language-environment 'Greek)
+
 
 ;; I prefer space instead of tab
 ;; this is overrided frm .editorconfig
